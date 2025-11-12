@@ -32,52 +32,17 @@ Router processes & statistics
 IP commands
 Other IP commands (e.g., show ip route)
 
-## PROGRAM
-
-# 1. Client.py
-``` 
- import socket
-
-s = socket.socket()
-s.connect(('localhost', 8000))
-
-while True:
-    ip = input("Enter the website you want to ping (or type 'exit' to quit): ")
-    s.send(ip.encode('utf-8'))
-    if ip.lower() == 'exit':
-        break
-    print(s.recv(4096).decode('utf-8'))
-
-s.close()
-```
-# 2.Server.py
-```
-import socket
-from pythonping import ping
-
-s = socket.socket()
-s.bind(('localhost', 8000))
-s.listen(5)
-print("Server listening on port 8000...")
-c, addr = s.accept()
-print(f"Connection from {addr}")
-
-while True:
-    try:
-        hostname = c.recv(1024).decode('utf-8')
-        if not hostname or hostname.lower() == 'exit':
-            print("Client disconnected.")
-            break
-        response = ping(hostname, verbose=False, count=4)
-        c.send(str(response).encode('utf-8'))
-    except Exception as e:
-        c.send(f"Ping failed: {e}".encode('utf-8'))
-
-c.close()
-```
 ## Output
 
-<img width="765" height="209" alt="image" src="https://github.com/user-attachments/assets/74b8eeaa-a7a1-47cf-ad9a-e0145e3b599e" />
+<img width="1920" height="1133" alt="Screenshot 2025-11-12 135401" src="https://github.com/user-attachments/assets/ca893f49-3b38-4e53-9e75-d8b42371b411" />
+
+<img width="1029" height="838" alt="Screenshot 2025-11-12 135412" src="https://github.com/user-attachments/assets/d6a5cc52-f94e-409a-8953-ec0811deeda7" />
+
+<img width="1029" height="705" alt="Screenshot 2025-11-12 135422" src="https://github.com/user-attachments/assets/f7b3ccfb-b1d8-4457-96dd-7f278a54bd08" />
+
+<img width="1032" height="480" alt="Screenshot 2025-11-12 135428" src="https://github.com/user-attachments/assets/0dba59ad-8457-44b1-8c14-67bcc9f3477b" />
+
+<img width="1030" height="608" alt="Screenshot 2025-11-12 135736" src="https://github.com/user-attachments/assets/33373c76-490b-4cc6-80dc-3330d51e09b6" />
 
 
 ## Result
